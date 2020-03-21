@@ -1,0 +1,166 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<!-- Mirrored from themes.sindevo.com/gomobile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Mar 2020 11:55:20 GMT -->
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>GoMobile - HTML mobile template</title>
+<meta name="author" content="themes.sindevo.com">
+<meta name="description" content="web app mobile template">
+<link rel="stylesheet" href="{% static ''%}preview/preview.css">
+<link href='{% static ''%}http://fonts.googleapis.com/css?family=Roboto:400,300,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="{% static ''%}preview/js/jquery-1.11.1.min.js"></script>
+</head>
+<style type="text/css">
+	.container
+	{
+	width: 79%;
+    padding: 41px;
+    margin: auto;
+	}
+</style>
+<body>
+<div class="main_content">
+
+	<div class="tablet_popup">
+	     <div class="tablet_wrap"><iframe id="frametablet" frameborder="no" border="0" scrolling="no" width="768px" height="1024px"></iframe></div> 
+	     <a href="#" id="closepopup">CLOSE POPUP</a>	 
+	</div>
+
+        <div class="left_content">
+            <h1><p>Mobile App Store</p><span></span></h1>
+
+            <h2>Our Best Seller <br /> mobile application development so far </h2>
+	  <p>Mobile App Store will give you a starting point when creating a mobile application, web app, and integrated with solutions like phonegap/cordova, for a real native app.</p>
+	  <div class="usage_info">YOUR Application DEMO</div>
+            <ul class="preview_items">	
+			{% for i in data  %}
+              <li><a href="#" id="main"><span>{{ i.img1name }}</span><img src="/upload/{{i.img1}}"/></a></li>
+	    	  <li><a href="#" id="green"><span>{{ i.img2name }}</span><img src="/upload/{{i.img2}}" /></a></li>
+              <li><a href="#" id="metro"><span>{{ i.img3name }}</span><img src="/upload/{{i.img3}}" /></a></li>
+              <li><a href="#" id="business"><span>{{ i.img4name }}</span><img src="/upload/{{i.img4}}"/></a></li>
+              <li><a href="#" id="gradient"><span>{{ i.img5name }}</span><img src="/upload/{{i.img5}}"/></a></li>
+              {% comment %} <li><a href="#" id="beauty"><span>Booking Page</span><img src="{% static ''%}preview/images/2.png" /></a></li> {% endcomment %}
+              {% comment %} <li><a href="#" id="medical"><span>Feedback</span><img src="{% static ''%}preview/images/7.png" /></a></li> {% endcomment %}
+	     	<!--   <li><a href="#" id="black"><span>black</span><img src="preview/images/3.png" /></a></li>
+		      <li><a href="#" id="red"><span>red</span><img src="preview/images/9.png" /></a></li>
+		      <li><a href="#" id="food"><span>food</span><img src="preview/images/10.png" /></a></li>
+		      <li><a href="#" id="slider"><span>slider</span><img src="preview/images/11.png" /></a></li>
+		      <li><a href="#" id="intro"><span>intro</span><img src="preview/images/12.png" /></a></li>
+		      <li><a href="#" id="wedding"><span>wedding</span><img src="preview/images/13.png" /></a></li>
+		      <li><a href="#" id="white"><span>white</span><img src="preview/images/14.png" /></a></li> -->
+			
+            </ul>		
+           <!--   <ul class="preview_items">	
+              <li><a href="#" id="main"><span>main</span><img src="preview/images/1.png" /></a></li>
+	          <li><a href="#" id="imagetesting"><span>Hello</span><img src="preview/images/6.png" /></a></li>
+            </ul>		 -->	
+
+            <div class="container">
+            	<h3 style="color: white;font-size: inherit;font-family: inherit;font-weight: 100;margin-bottom: 16px;"> You Like This Demo ? So Want it then feel free to Contact Us</h3>
+            	<a href="/detail/{{i.sno}}" class="fa fa-star-o">CLick ME</a>
+				{% comment %} <a href="./form/contact.html" class="usage_info">CLick ME</a> {% endcomment %}
+            </div>	  
+        </div>
+        
+  {% endfor %}
+        
+        
+        <div class="right_content">
+          <div class="iphone_bg">
+        	<div class="mobile_wrap">
+            <iframe id="frame" frameborder="no" border="0" scrolling="no" width="325px" height="580px"></iframe> 
+            </div>
+          </div>
+        </div>
+        
+        <div class="info_content">
+           
+                  <div class="clear"></div>	
+            <h3>Scan it with your mobile</h3>
+            <img src="{% static 'preview/images/qrcode.png' %}" alt="" title="" />
+           
+        </div>
+        
+</div>
+{% for i in data  %}
+<script type="text/javascript" charset="utf-8">
+var $ = jQuery.noConflict(); 
+$(document).ready(function () {
+$("#frame").attr("src","/upload/{{i.img1}}" );
+
+$("#main").click(function () { 
+	  $("#frame").attr("src","/upload/{{i.img1}}");
+});
+$("#green").click(function () { 
+	  $("#frame").attr("src","/upload/{{i.img2}}");
+});  
+$("#metro").click(function () { 
+	  $("#frame").attr("src", "/upload/{{i.img3}}" );
+}); 
+$("#business").click(function () { 
+	  $("#frame").attr("src",  "/upload/{{i.img4}}");
+}); 
+$("#gradient").click(function () { 
+	  $("#frame").attr("src","/upload/{{i.img5}}" );
+}); 
+$("#beauty").click(function () { 
+	  $("#frame").attr("src", "go-mobile-onepage/index_beauty.html");
+}); 
+$("#medical").click(function () { 
+	  $("#frame").attr("src", "go-mobile-onepage/index_medical.html");
+}); 
+// $("#black").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_black.html");
+// }); 
+// $("#red").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_personal.html");
+// }); 
+// $("#food").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_restaurant.html");
+// }); 
+// $("#slider").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_slider.html");
+// }); 
+// $("#intro").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_splash.html");
+// }); 
+// $("#wedding").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_wedding.html");
+// }); 
+// $("#white").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/index_white.html");
+// }); 
+// $("#imagetesting").click(function () { 
+// 	  $("#frame").attr("src", "go-mobile-onepage/apple-touch-startup-image-320x460.png");
+// }); 
+
+$("#loadtablet").click(function () { 
+	  var popupiframe =  $('#frame').contents().get(0).location.href;
+	  $("#frametablet").attr("src", popupiframe);
+	  $('.tablet_popup').fadeIn();
+});
+$("#closepopup").click(function () { 
+	 $('.tablet_popup').hide();
+});
+
+$("#loaddesktop").click(function () { 
+	  var popupiframedsk =  $('#frame').contents().get(0).location.href;
+	  $("#framedesktop").attr("src", popupiframedsk);
+	  $('.desktop_popup').fadeIn();
+});
+$("#closepopupdsk").click(function () { 
+	 $('.desktop_popup').hide();
+}); 
+
+
+
+});
+</script>  
+{% endfor %}
+</body>
+
+<!-- Mirrored from themes.sindevo.com/gomobile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Mar 2020 11:57:13 GMT -->
+</html>
