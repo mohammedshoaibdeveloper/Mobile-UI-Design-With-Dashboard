@@ -45,6 +45,6 @@ def contact(request):
         data=client(name=name,companyname=companyname,email=email,contact=contact,message=message,appid=appid)
         data.save()
         if data:
-            return redirect('https://logodesigning.org/')
+            return redirect('https://mobileappstore.co.uk/')
     return HttpResponse('404')
     # return render(request,'contact.html')
