@@ -37,11 +37,11 @@
 	  <div class="usage_info">YOUR Application DEMO</div>
             <ul class="preview_items">	
 			{% for i in data  %}
-              <li><a href="#" id="main"><span>{{ i.img1name }}</span><img src="/upload/{{i.img1}}"/></a></li>
-	    	  <li><a href="#" id="green"><span>{{ i.img2name }}</span><img src="/upload/{{i.img2}}" /></a></li>
-              <li><a href="#" id="metro"><span>{{ i.img3name }}</span><img src="/upload/{{i.img3}}" /></a></li>
-              <li><a href="#" id="business"><span>{{ i.img4name }}</span><img src="/upload/{{i.img4}}"/></a></li>
-              <li><a href="#" id="gradient"><span>{{ i.img5name }}</span><img src="/upload/{{i.img5}}"/></a></li>
+              <li><a href="#" id="main"><span>{{ i.img1name }}</span><img src="/upload/{{i.img1}}" onclick="showpage('{{i.img1}}')"/></a></li>
+	    	  <li><a href="#" id="green"><span>{{ i.img2name }}</span><img src="/upload/{{i.img2}}" onclick="showpage('{{i.img2}}')"/></a></li>
+              <li><a href="#" id="metro"><span>{{ i.img3name }}</span><img src="/upload/{{i.img3}}" onclick="showpage('{{i.img3}}')"/></a></li>
+              <li><a href="#" id="business"><span>{{ i.img4name }}</span><img src="/upload/{{i.img4}}" onclick="showpage('{{i.img4}}')"/></a></li>
+              <li><a href="#" id="gradient"><span>{{ i.img5name }}</span><img src="/upload/{{i.img5}}" onclick="showpage('{{i.img5}}')"/></a></li>
               {% comment %} <li><a href="#" id="beauty"><span>Booking Page</span><img src="{% static ''%}preview/images/2.png" /></a></li> {% endcomment %}
               {% comment %} <li><a href="#" id="medical"><span>Feedback</span><img src="{% static ''%}preview/images/7.png" /></a></li> {% endcomment %}
 	     	<!--   <li><a href="#" id="black"><span>black</span><img src="preview/images/3.png" /></a></li>
@@ -70,9 +70,9 @@
         
         <div class="right_content">
           <div class="iphone_bg">
-        	<div class="mobile_wrap">
-            <iframe id="frame" frameborder="no" border="0" scrolling="no" width="325px" height="580px"></iframe> 
-            </div>
+        	
+            <img id="frame" src="/upload/upload/1.png"  width="100%" height="100%"/> 
+           
           </div>
         </div>
         
@@ -85,81 +85,15 @@
         </div>
         
 </div>
-{% for i in data  %}
+
 <script type="text/javascript" charset="utf-8">
-var $ = jQuery.noConflict(); 
-$(document).ready(function () {
-$("#frame").attr("src","/upload/{{i.img1}}" );
 
-$("#main").click(function () { 
-	  $("#frame").attr("src","/upload/{{i.img1}}");
-});
-$("#green").click(function () { 
-	  $("#frame").attr("src","/upload/{{i.img2}}");
-});  
-$("#metro").click(function () { 
-	  $("#frame").attr("src", "/upload/{{i.img3}}" );
-}); 
-$("#business").click(function () { 
-	  $("#frame").attr("src",  "/upload/{{i.img4}}");
-}); 
-$("#gradient").click(function () { 
-	  $("#frame").attr("src","/upload/{{i.img5}}" );
-}); 
-$("#beauty").click(function () { 
-	  $("#frame").attr("src", "go-mobile-onepage/index_beauty.html");
-}); 
-$("#medical").click(function () { 
-	  $("#frame").attr("src", "go-mobile-onepage/index_medical.html");
-}); 
-// $("#black").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_black.html");
-// }); 
-// $("#red").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_personal.html");
-// }); 
-// $("#food").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_restaurant.html");
-// }); 
-// $("#slider").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_slider.html");
-// }); 
-// $("#intro").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_splash.html");
-// }); 
-// $("#wedding").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_wedding.html");
-// }); 
-// $("#white").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/index_white.html");
-// }); 
-// $("#imagetesting").click(function () { 
-// 	  $("#frame").attr("src", "go-mobile-onepage/apple-touch-startup-image-320x460.png");
-// }); 
-
-$("#loadtablet").click(function () { 
-	  var popupiframe =  $('#frame').contents().get(0).location.href;
-	  $("#frametablet").attr("src", popupiframe);
-	  $('.tablet_popup').fadeIn();
-});
-$("#closepopup").click(function () { 
-	 $('.tablet_popup').hide();
-});
-
-$("#loaddesktop").click(function () { 
-	  var popupiframedsk =  $('#frame').contents().get(0).location.href;
-	  $("#framedesktop").attr("src", popupiframedsk);
-	  $('.desktop_popup').fadeIn();
-});
-$("#closepopupdsk").click(function () { 
-	 $('.desktop_popup').hide();
-}); 
-
-
-
-});
+function showpage(x){
+	var a="/upload/"+x
+	$('#frame').attr('src',a);
+}
 </script>  
-{% endfor %}
+
 </body>
 
 <!-- Mirrored from themes.sindevo.com/gomobile/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Mar 2020 11:57:13 GMT -->

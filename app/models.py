@@ -44,7 +44,7 @@ class client(models.Model):
     email=models.CharField(max_length=255,default="")
     contact=models.IntegerField()
     message=models.TextField()
-    appid=models.IntegerField(default=0)
+    appid=models.ForeignKey(appinfo, on_delete=models.CASCADE)
     appimg=models.ImageField(upload_to='upload/',default="")
 
     def __str__(self):

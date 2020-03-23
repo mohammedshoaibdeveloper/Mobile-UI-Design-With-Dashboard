@@ -6,7 +6,6 @@ def index(request):
     if request.method=="POST":
         appname=request.POST['appname']
         cat=request.POST['cat']
-        
         price=request.POST['price']
         data=product(appname=appname,category=category.objects.get(mobileappname=cat),price=price)
         data.save()
@@ -41,10 +40,11 @@ def contact(request):
         email=request.POST['email']
         contact=request.POST['contact']
         message=request.POST['message']
-        appid=request.POST['appid']
+        appid=appinfo.objects.get(sno=request.POST['appid'])
         data=client(name=name,companyname=companyname,email=email,contact=contact,message=message,appid=appid)
         data.save()
         if data:
             return redirect('https://mobileappstore.co.uk/')
+            # return redirect('https://logodesigning.org/')
     return HttpResponse('404')
     # return render(request,'contact.html')
