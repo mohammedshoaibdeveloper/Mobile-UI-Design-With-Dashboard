@@ -1,4 +1,6 @@
 from django.db import models
+from rest_framework import serializers
+import datetime
 
 # Create your models here.
 class category(models.Model):
@@ -44,8 +46,29 @@ class client(models.Model):
     email=models.CharField(max_length=255,default="")
     contact=models.IntegerField()
     message=models.TextField()
+    datetime=models.DateField(default=datetime.date.today)
+    mark_time=models.IntegerField(default=0) 
     appid=models.ForeignKey(appinfo, on_delete=models.CASCADE)
     appimg=models.ImageField(upload_to='upload/',default="")
 
+
     def __str__(self):
         return self.email
+
+class users(models.Model):
+    userid=models.AutoField(primary_key=True)
+    fullname=models.CharField(max_length=255,default="")
+    email=models.CharField(max_length=255,default="")
+    password=models.TextField(default="0")
+
+class SerClient(serializers.ModelSerializer):
+    
+    class Meta:
+        model = client
+        fields= '__all__'
+
+class SerCategory(serializers.ModelSerializer):
+    
+    class Meta:
+        model = category
+        fields= '__all__'

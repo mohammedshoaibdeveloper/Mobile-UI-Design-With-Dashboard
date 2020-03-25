@@ -1,0 +1,154 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block sitetitle %}
+Mobile App Store Dashboard
+{% endblock  %}
+
+{% block pagetitle %}
+ <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">Mobile App Store Dashboard</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Mobile App Store</li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                </div>
+            </div>
+
+{% endblock  %}
+{% comment %} home boady start {% endcomment %}
+{% block body %}
+  <!-- ============================================================== -->
+            <div class="container-fluid">
+                
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+           
+                <!-- Row -->
+             
+             <div class="row">
+                <div class="col-lg-12 col-md-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                        
+                        </div>
+                        <h4 class="card-title m-b-0">Order Overview</h4>
+                    </div>
+                    <div class="card-body collapse show">
+                        <div class="table-responsive">
+                            <table class="table product-overview">
+                                <thead>
+                                    <tr>
+                                        <th>Apps</th>
+                                        <th>Customer</th>
+                                        <th>Contact No:</th>
+                                       
+                                        <th>Email</th>
+                                        <th>Date</th>
+                                       
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            
+                                    {% for data in userdata %}
+                                    {% if data.mark_time == 0 %}
+                                  
+                                    <tr>
+                                        <td>
+                                            <img src="/upload/{{data.appid.img1}}" alt="iMac" width="80">
+                                        </td>
+                                       
+                                        <td><h4>{{data.name}}</h4></td>
+                                        <td><h4>{{data.contact}}</h4></td>
+                                       
+                                        <td><h4>{{data.email}}</h4></td>
+                                        <td><h4>{{data.datetime}}</h4></td>
+                                        
+                                        <td>
+                                            <a href="accept/{{data.id}}" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Accept"><i class="ti-check-box"></i></a> 
+                                            <a href="javascript:void(0)" class="text-inverse p-r-10"  title="Message" data-original-title="Accept" data-toggle="modal" data-target="#clientModal" onclick="clientmessage({{data.id}})"><i class="ti-email"></i></a> 
+                                          
+                                    </tr>
+                                   
+                                    {% else %}
+                                      <tr>
+                                        <td>
+                                            <img src="/upload/{{data.appid.img1}}" alt="iMac" width="80">
+                                        </td>
+                                        <td>{{data.name}}</td>
+                                        <td>{{data.contact}}</td>
+                                       
+                                        <td>{{data.email}}</td>
+                                        <td>{{data.datetime}}</td>
+                                       
+                                        <td>
+                                            <a href="javascript:void(0)" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Accept"><i class="ti-check-box"></i></a> 
+                                          <a href="javascript:void(0)" class="text-inverse p-r-10"  title="Message" data-original-title="Accept" data-toggle="modal" data-target="#clientModal" onclick="clientmessage({{data.id}})"><i class="ti-email"></i></a>
+                                          </td>
+                                    </tr>
+                                    {% endif %}
+                               {% endfor %}
+                                </tbody>
+                               
+                            </table>
+ <a href="#" class="btn btn-primary align-center">More</a>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    {% comment %} view Model start {% endcomment %}
+ <!-- update model data -->
+<div class="modal" id="clientModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Client Message</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div>
+           <p id="clientmsg"></p>
+                
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" id="updatecategory" class="btn btn-primary"  data-dismiss="modal" >Close</button>
+        </div>
+    </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    {% comment %} view Model end {% endcomment %}
+{% endblock  %}
+{% comment %} home boady end {% endcomment %}
+{% block script %}
+<script>
+function clientmessage(x){
+   $.ajax({
+       url:'clientmessage',
+       type:'GET',
+       data:{'id':x},
+       success: function(data){
+           var msgdata= eval(data);
+          $('#clientmsg').html(msgdata[0].message)
+       }
+   })
+}
+</script>
+{% endblock  %}

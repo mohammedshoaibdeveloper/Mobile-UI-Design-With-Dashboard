@@ -1,0 +1,240 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block sitetitle %}
+Mobile App Store Dashboard
+{% endblock  %}
+
+{% block pagetitle %}
+ <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">Mobile App Store Dashboard</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Mobile App Store</li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                </div>
+            </div>
+
+{% endblock  %}
+{% comment %} home boady start {% endcomment %}
+{% block body %}
+  <!-- ============================================================== -->
+            <div class="container-fluid">
+                
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+             
+                <!-- Row -->
+             
+             <div class="row">
+                <div class="col-lg-12 col-md-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                        
+                        </div>
+                        <h4 class="card-title m-b-0">App Overview</h4>
+                        <a href="javascript:void(0)" class="btn  btn btn-info float-right" data-toggle="modal" data-target="#addModal"><i class="fa fa-upload" >  Add Category</i></a>
+                    </div>
+                    <div class="card-body collapse show">
+                        <div class="table-responsive">
+                            <table class="table product-overview">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Apps Category</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="catdata">
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    {% comment %} view Model start {% endcomment %}
+    <!-- The Modal -->
+<div class="modal" id="addModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Category</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div>
+          {% csrf_token %}
+            
+          
+              <label >Title</label>
+              <input type="text" name="title" id="title" placeholder="title" class="form-control" required>
+          
+              
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" id="insertcategory" class="btn btn-primary"  data-dismiss="modal" >Add Category</button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- update model data -->
+<div class="modal" id="updateModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Update Category</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div>
+            {% csrf_token %}
+              
+                 <input type="hidden" id="uid" value="">
+                <label >Title</label>
+                <input type="text" name="title" id="utitle" placeholder="title" class="form-control" required>
+            
+                
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" id="updatecategory" class="btn btn-primary"  data-dismiss="modal" >Update Category</button>
+        </div>
+    </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    {% comment %} view Model end {% endcomment %}
+{% endblock  %}
+{% comment %} home boady end {% endcomment %}
+{% block script %}
+<script>
+$(document).ready(function(){
+    showdata();
+    // insert category
+    $('#insertcategory').click(function(){
+        var title=$('#title').val();
+        $.ajax({
+            url:'categoryinsert',
+            type:'POST',
+            data:{
+                'title':title,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            },
+            success: function(data){
+                showdata();
+            }
+        });
+    });
+    // end insert category
+    // update category
+    $('#updatecategory').click(function(){
+        var uid=$('#uid').val();
+        var utitle=$('#utitle').val();
+       
+        $.ajax({
+            url:'categoryupdatedata',
+            type:'POST',
+            data:{
+                'uid':uid,
+                'utitle':utitle,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            },
+            success: function(data){
+                
+                showdata();
+            }
+        });
+
+    });
+});
+function showdata(){
+  
+    var element;
+    $.ajax({
+        url:'categorydata',
+        type:'GET',
+        success: function(data){
+            var alldata= eval(data)
+            var a=0;
+           for(x=0;x<alldata.length;x++){
+            element+=`
+            <tr>
+                                        
+                                       
+                                        <td>${++a}</h4></td>
+                                        <td>${alldata[x].mobileappname}</td>
+                                       
+                                        
+                                        
+                                        <td>
+                                           <a href="javascript:void(0)"data-toggle="modal" data-target="#updateModal" onclick="updatedata(${alldata[x].cid})" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Accept"><i class="ti-check-box"></i></a> 
+                                            <a href="javascript:void(0)" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete" onclick="deldata(${alldata[x].cid})"><i class="ti-trash"></i></a>
+                                            </td>
+                                  
+                                    </tr>
+            `
+           }
+           $('#catdata').html(element)
+            
+        }
+
+    });
+      
+}
+// update categoyr data
+function updatedata(x){
+  $.ajax({
+    url:'categoryupdatedata',
+    type:'GET',
+    data:{'id':x},
+    success: function(data){
+        var udata= eval(data);
+        $('#utitle').val(udata[0].mobileappname);
+        $('#uid').val(udata[0].cid);
+      
+        
+    }
+  });
+}
+//   update category end
+// delete category
+function deldata(x){
+    if (confirm("Do You want to Delete Category")) {
+    
+  
+    $.ajax({
+        url:'delcategory',
+        type:'GET',
+        data:{'id':x},
+        success: function(data){
+            showdata();
+        }
+    });
+    }
+
+}
+</script>
+{% endblock  %}

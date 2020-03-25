@@ -1,0 +1,78 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block sitetitle %}
+Mobile App Store Dashboard
+{% endblock  %}
+
+{% block pagetitle %}
+ <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">Mobile App Store Dashboard</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Mobile App Store</li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                </div>
+            </div>
+
+{% endblock  %}
+{% comment %} home boady start {% endcomment %}
+{% block body %}
+  <!-- ============================================================== -->
+  <div class="row">
+  <div class="col-md-3">
+ 
+  </div>
+  <div class="col-md-5 ">
+        <form action="{% url 'updatelogodata' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            <input type="hidden" name="uid" value="{{data.sno}}">
+          
+              
+          
+              <label >Category</label>
+              <select name="category" class=" form-control" required>
+                  <option value="{{data.category.cid}}">{{data.category}}</option>
+                  {% for cat in category %}
+                  <option value="{{cat.cid}}">{{cat.mobileappname}}</option>
+                    
+                  {% endfor %}
+              </select>
+             <label for="">Image1 Name</label>
+              <input type="text" name="img1name" class="form-control" required>
+              <label for="">image1</label>
+              <input type="file" name="img1" class="form-control" required>
+                <label for="">Image2 Name</label>
+              <input type="text" name="img2name" class="form-control" required>
+              <label for="">image2</label>
+              <input type="file" name="img2" class="form-control" required>
+                <label for="">Image3 Name</label>
+              <input type="text" name="img3name" class="form-control" required>
+              <label for="">image3</label>
+              <input type="file" name="img3" class="form-control" required>
+                <label for="">Image4 Name</label>
+              <input type="text" name="img4name" class="form-control" required>
+              <label for="">image4</label>
+              <input type="file" name="img4" class="form-control" required>
+                <label for="">Image5 Name</label>
+              <input type="text" name="img5name" class="form-control" required>
+              <label for="">image5</label>
+              <input type="file" name="img5" class="form-control" required>
+               
+      
+        <button type="submit" class="btn btn-primary" >update Logo</button>
+        </from>
+        </div>
+        <div class="col-md-3">
+        <img src="/upload/{{data.img1}}" alt="{{data.img1name}}" width="200px" height="200px">
+                                 
+        </div>
+        </div>
+    {% comment %} view Model end {% endcomment %}
+{% endblock  %}
+{% comment %} home boady end {% endcomment %}

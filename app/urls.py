@@ -8,7 +8,5 @@ urlpatterns = [
     path('contact', views.contact,name='contact'),
     path('detail/<int:id>', views.detail,name='detail'),
     
-    # path('detail/<int:id>', views.detail,name='detail'),
     
-  
 ]

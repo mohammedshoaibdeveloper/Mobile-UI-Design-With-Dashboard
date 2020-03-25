@@ -1,0 +1,146 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block sitetitle %}
+Mobile App Store Dashboard
+{% endblock  %}
+
+{% block pagetitle %}
+ <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">Mobile App Store Dashboard</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Mobile App Store</li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                </div>
+            </div>
+
+{% endblock  %}
+{% comment %} home boady start {% endcomment %}
+{% block body %}
+  <!-- ============================================================== -->
+            <div class="container-fluid">
+                
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+             
+                <!-- Row -->
+             
+             <div class="row">
+                <div class="col-lg-12 col-md-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                        
+                        </div>
+                        <h4 class="card-title m-b-0">Apps Overview</h4>
+                        <a href="javascript:void(0)" class="btn  btn btn-info float-right" data-toggle="modal" data-target="#addModal"><i class="fa fa-upload" >  Add Apps</i></a>
+                    </div>
+                    <div class="card-body collapse show">
+                        <div class="table-responsive">
+                            <table class="table product-overview">
+                                <thead>
+                                    <tr>
+                                        <th>Apps</th>
+                                        {% comment %} <th>Title</th> {% endcomment %}
+                                        <th>Category</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in data %}
+                                  <tr>
+                                        <td>
+                                            <img src="/upload/{{data.img1}}" alt="{{data.title}}" width="80">
+                                        </td>
+                                       
+                                        {% comment %} <td>{{data.title}}</h4></td> {% endcomment %}
+                                        <td>{{data.category}}</td>
+                                       
+                                        
+                                        
+                                        <td>
+                                           <a href="logoupdate/{{data.sno}}" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Accept"><i class="ti-check-box"></i></a> 
+                                            <a href="deletelogo/{{data.sno}}" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="ti-trash"></i></a></td>
+                                  
+                                    </tr>
+                                    
+                               {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    {% comment %} view Model start {% endcomment %}
+    <!-- The Modal -->
+<div class="modal" id="addModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Apps</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="{% url 'logos' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            
+          
+              {% comment %} <label >Title</label>
+              <input type="text" name="title" placeholder="title" class="form-control" required> {% endcomment %}
+          
+              <label >Category</label>
+              <select name="category" class=" form-control" required>
+                  <option >Choce Category</option>
+                  {% for cat in category %}
+                  <option value="{{cat.cid}}">{{cat.mobileappname}}</option>
+                    
+                  {% endfor %}
+              </select>
+              <label for="">Image1 Name</label>
+              <input type="text" name="img1name" class="form-control" required>
+              <label for="">image1</label>
+              <input type="file" name="img1" class="form-control" required>
+                <label for="">Image2 Name</label>
+              <input type="text" name="img2name" class="form-control" required>
+              <label for="">image2</label>
+              <input type="file" name="img2" class="form-control" required>
+                <label for="">Image3 Name</label>
+              <input type="text" name="img3name" class="form-control" required>
+              <label for="">image3</label>
+              <input type="file" name="img3" class="form-control" required>
+                <label for="">Image4 Name</label>
+              <input type="text" name="img4name" class="form-control" required>
+              <label for="">image4</label>
+              <input type="file" name="img4" class="form-control" required>
+                <label for="">Image5 Name</label>
+              <input type="text" name="img5name" class="form-control" required>
+              <label for="">image5</label>
+              <input type="file" name="img5" class="form-control" required>
+          </div>
+       
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" >Add Logo</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+    {% comment %} view Model end {% endcomment %}
+{% endblock  %}
+{% comment %} home boady end {% endcomment %}
