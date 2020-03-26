@@ -208,15 +208,15 @@ def settings(request):
         email=request.POST['uemail']
         password=request.POST['upassword']
         hashpwd=pbkdf2_sha256.hash(password)
-        user=users.objects.get(userid=1)
+        user=users.objects.get(userid=3)
         user.fullname=name
         user.email=email
         user.password=hashpwd
         user.save()
         return redirect('settings')
-    # data=users.objects.get(userid=pk)
-    # return render(request,'dashboard/settings.html',{'data':data})
-    return render(request,'dashboard/settings.html')
+    data=users.objects.get(userid=3)
+    return render(request,'dashboard/settings.html',{'data':data})
+    # return render(request,'dashboard/settings.html')
     
 
 
